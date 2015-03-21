@@ -1,3 +1,7 @@
 <template name="decksList">
-	<p>This is the decks list template.</p>
+	<ul>
+	{{#each decks}}	
+		<li>{{name}}</li>
+	{{/each}}
+	</ul>
 </template>
