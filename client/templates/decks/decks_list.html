@@ -1,8 +1,8 @@
 <template name="decksList">
-	<table>
+	<table class="table table-condensed table-bordered">
 		<tr>
-			<td><b>Deck</b></td>
-			<td><b>Due</b></td>
+			<th>Deck</th>
+			<th>Due</th>
 		</tr>
 		{{#each decks}}	
 			{{> deckItem}}
