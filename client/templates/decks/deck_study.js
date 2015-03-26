@@ -31,5 +31,14 @@ Template.deckStudy.events({
 		e.preventDefault();
 		
 		Session.set('showCardBack', true);
+	},
+	'click .again': function(e) {
+		e.preventDefault();
+		
+		Session.set('showCardBack', false);
+		
+		var newTime = new Date();
+		newTime.setMinutes(newReviewTime.getMinutes() + 1);
+		Cards.findOne({nextReview: {$lte: new Date()}}).set({nextReview: newTime});
 	}
 })
