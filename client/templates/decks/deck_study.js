@@ -37,8 +37,11 @@ Template.deckStudy.events({
 		
 		Session.set('showCardBack', false);
 		
+		var cardId = Cards.findOne({nextReview: {$lte: new Date()}})._id;
+		
 		var newTime = new Date();
-		newTime.setMinutes(newReviewTime.getMinutes() + 1);
-		Cards.findOne({nextReview: {$lte: new Date()}}).set({nextReview: newTime});
+		newTime.setMinutes(newTime.getMinutes() + 1);
+		
+		Cards.update(cardId, {$set: {nextReview: newTime}});
 	}
 })
