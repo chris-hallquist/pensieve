@@ -15,7 +15,7 @@ Accounts.onCreateUser(function(options, user) {
 	
 	Cards.insert(_.extend(blankJSCard, {
 		front: 'JS code to return the length of a string <code>str</code>',
-		back: 'str.length',
+		back: '<code>str.length</code>',
 	}));
 	
 	Cards.insert(_.extend(blankJSCard, {
@@ -30,12 +30,12 @@ Accounts.onCreateUser(function(options, user) {
 	
 	Cards.insert(_.extend(blankJSCard, {
 		front: 'JS function to send a message to the user which they can respond to by clicking "OK"',
-		back: '<code>alert(message)</code>',
+		back: '<code>alert(message);</code>',
 	}));
-	
+
 	Cards.insert(_.extend(blankJSCard, {
 		front: 'JS function to send a message to the user which they can respond to by clicking "OK" <i>or</i> "cancel"',
-		back: '<code>confirm(message)</code>',
+		back: '<code>confirm(message);</code>',
 	}));
 		
 	return user;
