@@ -1,13 +1,18 @@
 <template name="deckStudy">
-	<h1>{{deck.name}}</h1>
-	<div>{{front}}</div>
-	{{#if showCardBack}}
-	<div>{{back}}</div>
-	<button>Again</button>
-	<button>Hard</button>
-	<button>Good</button>
-	<button>Easy</button>
-	{{else}}
-	<button class="showAnswer">Show Answer</button>
-	{{/if}}
+	<div align="center">
+		<h1>{{deck.name}}</h1>
+		<p>{{front}}</p>
+		{{#if showCardBack}}
+		<hr/>
+		<p>{{back}}</p>
+		<p></p>
+		<button>Again</button>
+		<button>Hard</button>
+		<button>Good</button>
+		<button>Easy</button>
+		{{else}}
+		<p></p>
+		<button class="showAnswer">Show Answer</button>
+		{{/if}}
+	</div>
 </template>
