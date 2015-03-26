@@ -40,7 +40,7 @@ Template.deckStudy.events({
 		var cardId = Cards.findOne({nextReview: {$lte: new Date()}})._id;
 		
 		var newTime = new Date();
-		newTime.setMinutes(newTime.getMinutes() + 1);
+		newTime.setSeconds(newTime.getSeconds() + 10);
 		
 		Cards.update(cardId, {$set: {nextReview: newTime}});
 	}
