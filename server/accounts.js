@@ -24,7 +24,7 @@ Accounts.onCreateUser(function(options, user) {
 	}));
 	
 	Cards.insert(_.extend(blankJSCard, {
-		front: 'How are comments inidcated in JavaScript',
+		front: 'How are comments indicated in JavaScript',
 		back: 'With two forward slashes, like so: <code>// This is a comment</code>',
 	}));
 	

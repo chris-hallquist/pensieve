@@ -1,5 +1,9 @@
 Template.deckStudy.created = function() {
-	// We want to initially not show the back of the card
+	Session.set('showCardBack', false);
+	
+	Session.set('card', Cards.findOne({
+		nextReview: {$lte: new Date()}
+	}));
 }
 
 Template.deckStudy.helpers({
@@ -7,19 +11,13 @@ Template.deckStudy.helpers({
 		return Decks.findOne();
 	},
 	card: function () {
-		return Cards.findOne({
-			nextReview: {$lte: new Date()}
-		});
+		return Session.get('card');
 	},
 	front: function () {
-		return new Spacebars.SafeString(Cards.findOne({
-			nextReview: {$lte: new Date()}
-		}).front);
+		return new Spacebars.SafeString(Session.get('card').front);
 	},
 	back: function () {
-		return new Spacebars.SafeString(Cards.findOne({
-			nextReview: {$lte: new Date()}
-		}).back);
+		return new Spacebars.SafeString(Session.get('card').back);
 	},
 	showCardBack: function () {
 		return Session.get('showCardBack');
@@ -37,11 +35,15 @@ Template.deckStudy.events({
 		
 		Session.set('showCardBack', false);
 		
-		var cardId = Cards.findOne({nextReview: {$lte: new Date()}})._id;
+		var cardId = Session.get('card')._id;
 		
 		var newTime = new Date();
-		newTime.setSeconds(newTime.getSeconds() + 10);
+		newTime.setSeconds(newTime.getSeconds() + 1);
 		
 		Cards.update(cardId, {$set: {nextReview: newTime}});
+		
+		Session.set('card', Cards.findOne({
+			nextReview: {$lte: new Date()}
+		}));
 	}
 })
