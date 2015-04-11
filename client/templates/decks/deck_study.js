@@ -55,16 +55,92 @@ Template.deckStudy.events({
 		
 		Session.set('showCardBack', false);
 		
-		var cardId = Session.get('card')._id;
-		var interval = Session.get('card').interval;
+		var currentCard = Session.get('card')
+		var cardId = currentCard._id;
+		var interval = currentCard.interval;
 		var newTime = new Date();
 		
-		// Finish this later
+		if (currentCard.isNew) {
+			var newInterval = 60;
+		} else if (currentCard.interval < 86400) {
+			var newInterval = 86400; // 1 day
+		} else {
+			var newInterval = currentCard.interval * 1.5
+		}
+
+		var newTime = new Date();
+		newTime.setSeconds(newTime.getSeconds() + newInterval);
+		
+		Cards.update(cardId, {$set: {
+			nextReview: newTime,
+			interval: newInterval,
+			isNew: false
+		}});
+		
+		Session.set('card', Cards.findOne({
+			nextReview: {$lte: new Date()}
+		}));
 	},
 	'click .good': function(e) {
-		// Finish this later
+		e.preventDefault();
+		
+		Session.set('showCardBack', false);
+		
+		var currentCard = Session.get('card')
+		var cardId = currentCard._id;
+		var interval = currentCard.interval;
+		var newTime = new Date();
+		
+		if (currentCard.isNew) {
+			var newInterval = 600;
+		} else if (currentCard.interval < 86400) {
+			var newInterval = 86400 * 2; // 2 days
+		} else {
+			var newInterval = currentCard.interval * 2.5
+		}
+
+		var newTime = new Date();
+		newTime.setSeconds(newTime.getSeconds() + newInterval);
+		
+		Cards.update(cardId, {$set: {
+			nextReview: newTime,
+			interval: newInterval,
+			isNew: false
+		}});
+		
+		Session.set('card', Cards.findOne({
+			nextReview: {$lte: new Date()}
+		}));
 	},
 	'click .easy': function(e) {
-		// Finish this later
+		e.preventDefault();
+		
+		Session.set('showCardBack', false);
+		
+		var currentCard = Session.get('card')
+		var cardId = currentCard._id;
+		var interval = currentCard.interval;
+		var newTime = new Date();
+		
+		if (currentCard.isNew) {
+			var newInterval = 86400; // 1 day
+		} else if (currentCard.interval < 86400) {
+			var newInterval = 86400 * 3; // 3 days
+		} else {
+			var newInterval = currentCard.interval * 3.5
+		}
+
+		var newTime = new Date();
+		newTime.setSeconds(newTime.getSeconds() + newInterval);
+		
+		Cards.update(cardId, {$set: {
+			nextReview: newTime,
+			interval: newInterval,
+			isNew: false
+		}});
+		
+		Session.set('card', Cards.findOne({
+			nextReview: {$lte: new Date()}
+		}));
 	}
-})
+});
