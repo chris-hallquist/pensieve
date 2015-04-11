@@ -30,9 +30,8 @@ Template.deckStudy.events({
 		
 		Session.set('showCardBack', true);
 	},
-	// I will need to refactor the next four functions at some point
-	// See the updateReviewTime function in collections/cards.js
-	// Function currently doesn't work, need to fix that
+	
+	/* Next four functions could be refactored further */
 	'click .again': function(e) {
 		e.preventDefault();
 		
