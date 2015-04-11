@@ -31,6 +31,8 @@ Template.deckStudy.events({
 		Session.set('showCardBack', true);
 	},
 	// I will need to refactor the next four functions at some point
+	// See the updateReviewTime function in collections/cards.js
+	// Function currently doesn't work, need to fix that
 	'click .again': function(e) {
 		e.preventDefault();
 		
@@ -38,13 +40,15 @@ Template.deckStudy.events({
 		
 		var cardId = Session.get('card')._id;
 		
-		var newTime = new Date();
-		newTime.setSeconds(newTime.getSeconds() + 1);
+		Meteor.call('updateReviewTime', cardId, 1);
 		
-		Cards.update(cardId, {$set: {
-			nextReview: newTime,
-			interval: 0
-		}});
+		// var newTime = new Date();
+		// newTime.setSeconds(newTime.getSeconds() + 1);
+		// 
+		// Cards.update(cardId, {$set: {
+		// 	nextReview: newTime,
+		// 	interval: 0
+		// }});
 		
 		Session.set('card', Cards.findOne({
 			nextReview: {$lte: new Date()}
@@ -58,7 +62,6 @@ Template.deckStudy.events({
 		var currentCard = Session.get('card')
 		var cardId = currentCard._id;
 		var interval = currentCard.interval;
-		var newTime = new Date();
 		
 		if (currentCard.isNew) {
 			var newInterval = 60;
@@ -68,14 +71,16 @@ Template.deckStudy.events({
 			var newInterval = currentCard.interval * 1.5
 		}
 
-		var newTime = new Date();
-		newTime.setSeconds(newTime.getSeconds() + newInterval);
-		
-		Cards.update(cardId, {$set: {
-			nextReview: newTime,
-			interval: newInterval,
-			isNew: false
-		}});
+		Meteor.call('updateReviewTime', newInterval);
+
+		// var newTime = new Date();
+		// newTime.setSeconds(newTime.getSeconds() + newInterval);
+		// 
+		// Cards.update(cardId, {$set: {
+		// 	nextReview: newTime,
+		// 	interval: newInterval,
+		// 	isNew: false
+		// }});
 		
 		Session.set('card', Cards.findOne({
 			nextReview: {$lte: new Date()}
@@ -89,7 +94,6 @@ Template.deckStudy.events({
 		var currentCard = Session.get('card')
 		var cardId = currentCard._id;
 		var interval = currentCard.interval;
-		var newTime = new Date();
 		
 		if (currentCard.isNew) {
 			var newInterval = 600;
@@ -99,14 +103,16 @@ Template.deckStudy.events({
 			var newInterval = currentCard.interval * 2.5
 		}
 
-		var newTime = new Date();
-		newTime.setSeconds(newTime.getSeconds() + newInterval);
-		
-		Cards.update(cardId, {$set: {
-			nextReview: newTime,
-			interval: newInterval,
-			isNew: false
-		}});
+		Meteor.call('updateReviewTime', newInterval);
+
+		// var newTime = new Date();
+		// newTime.setSeconds(newTime.getSeconds() + newInterval);
+		// 
+		// Cards.update(cardId, {$set: {
+		// 	nextReview: newTime,
+		// 	interval: newInterval,
+		// 	isNew: false
+		// }});
 		
 		Session.set('card', Cards.findOne({
 			nextReview: {$lte: new Date()}
@@ -120,7 +126,6 @@ Template.deckStudy.events({
 		var currentCard = Session.get('card')
 		var cardId = currentCard._id;
 		var interval = currentCard.interval;
-		var newTime = new Date();
 		
 		if (currentCard.isNew) {
 			var newInterval = 86400; // 1 day
@@ -130,14 +135,16 @@ Template.deckStudy.events({
 			var newInterval = currentCard.interval * 3.5
 		}
 
-		var newTime = new Date();
-		newTime.setSeconds(newTime.getSeconds() + newInterval);
-		
-		Cards.update(cardId, {$set: {
-			nextReview: newTime,
-			interval: newInterval,
-			isNew: false
-		}});
+		Meteor.call('updateReviewTime', newInterval);
+
+		// var newTime = new Date();
+		// newTime.setSeconds(newTime.getSeconds() + newInterval);
+		// 
+		// Cards.update(cardId, {$set: {
+		// 	nextReview: newTime,
+		// 	interval: newInterval,
+		// 	isNew: false
+		// }});
 		
 		Session.set('card', Cards.findOne({
 			nextReview: {$lte: new Date()}
