@@ -1,9 +1,11 @@
-Templates.deckCreate.events({
-	'click .create': function(e) {
+Template.deckCreate.events({
+	'submit #create': function(e) {				
 		e.preventDefault();
 		
-		// Create deck
+		var deckName = $(e.currentTarget).find('input').val();
 		
-		// Navigate back to deck list
+		Meteor.call('deckInsert', deckName);
+		
+		Router.go('decksList');
 	}
 });
